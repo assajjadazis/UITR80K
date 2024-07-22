@@ -34,22 +34,21 @@
 	<script>
 		let opts = {
 			map: {
-				center: [-6.5944075747947, 106.90343179354726],
-				zoom: 10,
-				preferCanvas: true,
-				rotate: true,
-				// bearing: 45,
-				rotateControl: {
-					closeOnZeroBearing: true
-				},
-				fullscreenControl: false,
+				center: [-6.593821394258885, 106.90297044855343],
+				zoom: 8,
+				fullscreenControl: true,
+				layersControl: true,
 				minimapControl: false,
 				searchControl: false,
 				locateControl: false,
 				pegmanControl: false,
-				zoomControl: false,
 				resizerControl: false,
-				layersControl: false,
+				gestureHandling: false,
+				preferCanvas: true,
+				mapTypeId: 'satellite',
+				rotate: false,
+				zoomControl: {
+					position: 'topleft',
 			},
 			elevationControl: {
 				urls: {
@@ -58,7 +57,9 @@
 					'map-3': "https://assajjadazis.github.io/tracks/50K_UITR.gpx",
 				},
 				options: {
-					theme: "lightblue-theme",
+					theme: "yellow-theme",
+					width: 100,
+					height: 150,
 					collapsed: false,
 					autohide: false,
 					autofitBounds: true,
