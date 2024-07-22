@@ -36,19 +36,20 @@
 			map: {
 				center: [-6.593821394258885, 106.90297044855343],
 				zoom: 8,
-				fullscreenControl: true,
-				layersControl: true,
+				preferCanvas: true,
+				rotate: true,
+				// bearing: 45,
+				rotateControl: {
+					closeOnZeroBearing: true
+				},
+				fullscreenControl: false,
 				minimapControl: false,
 				searchControl: false,
 				locateControl: false,
 				pegmanControl: false,
+				zoomControl: false,
 				resizerControl: false,
-				gestureHandling: false,
-				preferCanvas: true,
-				mapTypeId: 'satellite',
-				rotate: false,
-				zoomControl: {
-					position: 'topleft',
+				layersControl: false,
 			},
 			elevationControl: {
 				urls: {
