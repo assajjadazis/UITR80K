@@ -53,11 +53,11 @@
 				urls: {
 					'map-1': "https://assajjadazis.github.io/tracks/50K_UITR.gpx",
 					'map-2': "https://assajjadazis.github.io/tracks/30K_UITR.gpx",
-					'map-3': "https://assajjadazis.github.io/tracks/50K_UITR.gpx",
 				},
 				options: {
 					theme: "yellow-theme",
-					
+					width: 100,
+					height: 150,
 					collapsed: false,
 					autohide: false,
 					autofitBounds: true,
@@ -88,9 +88,9 @@
 
 		let maps = [], charts = [];
 
-		for (const id of ['map-1', 'map-2', 'map-3']) {
-			opts.elevationControl.options.detached = ['map-3'].includes(id);
-			opts.elevationControl.options.marker   = ['map-3'].includes(id) ? 'position-marker' : 'elevation-line';
+		for (const id of ['map-1', 'map-2']) {
+			opts.elevationControl.options.detached = ['map-1'].includes(id);
+			opts.elevationControl.options.marker   = ['map-1'].includes(id) ? 'position-marker' : 'elevation-line';
 
 			let map = L.map(id, opts.map);
 
