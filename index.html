@@ -2,14 +2,14 @@
 <html>
 
 <head>
-	<title>leaflet-elevation.js</title>
+	<title>UI Trail Race 2024 40K Category</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<link rel="dns-prefetch" href="https://tile.openstreetmap.org">
 	<link rel="dns-prefetch preconnect" href="https://unpkg.com" />
 	<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" as="script">
 	<link rel="preload" href="https://unpkg.com/leaflet-ui@0.6.0/dist/leaflet-ui.js" as="script">
-	
+
 	<style>@import 'css/fullpage.css';</style>
 
 	<!-- leaflet-ui -->
@@ -22,37 +22,34 @@
 	<!-- leaflet-elevation -->
 	<link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation@2.5.1/dist/leaflet-elevation.min.css" />
 	<script src="https://unpkg.com/@raruto/leaflet-elevation@2.5.1/dist/leaflet-elevation.min.js"></script>
-
 </head>
 
-<body style="flex-direction: row; flex-wrap: wrap; gap: 10px;">
+<body>
 
-	<div id="map-1" class="leaflet-map" style="flex: calc(50% - 5px);"></div>
-	<div id="map-2" class="leaflet-map" style="flex: calc(50% - 5px);"></div>
+	<div id="map" class="leaflet-map"></div>
 
 	<script>
 		let opts = {
 			map: {
 				center: [-6.593821394258885, 106.90297044855343],
-				zoom: 8,
+				zoom: 10,
 				fullscreenControl: true,
-				preferCanvas: true,
-				rotate: false,
-				fullscreenControl: false,
+				layersControl: true,
 				minimapControl: false,
 				searchControl: false,
 				locateControl: false,
 				pegmanControl: false,
-				zoomControl: false,
 				resizerControl: false,
-				layersControl: false,
+				gestureHandling: false,
+				preferCanvas: true,
 				mapTypeId: 'satellite',
+				rotate: false,
+				zoomControl: {
+					position: 'topleft',
+				},
 			},
 			elevationControl: {
-				urls: {
-					'map-1': "https://assajjadazis.github.io/tracks/50K_UITR.gpx",
-					'map-2': "https://assajjadazis.github.io/tracks/30K_UITR.gpx",
-				},
+				url: "https://assajjadazis.github.io/tracks/80K_UITR.gpx",
 				options: {
 					theme: "yellow-theme",
 					width: 100,
@@ -75,7 +72,6 @@
 					almostOver: true,
 					distanceMarkers: false,
 					hotline: false,
-					
 				},
 			},
 			layersControl: {
@@ -85,23 +81,14 @@
 			},
 		};
 
-		let maps = [], charts = [];
+		let map = L.map('map', opts.map);
 
-		for (const id of ['map-1', 'map-2']) {
-			
+		let controlElevation = L.control.elevation(opts.elevationControl.options).addTo(map);
+		let controlLayer = L.control.layers(null, null, opts.layersControl.options);
 
-			let map = L.map(id, opts.map);
+		controlElevation.on('eledata_loaded', ({layer, name}) => controlLayer.addTo(map) && layer.eachLayer((trkseg) => trkseg.feature.geometry.type != "Point" && controlLayer.addOverlay(trkseg, trkseg.feature && trkseg.feature.properties && trkseg.feature.properties.name || name)));
 
-			let controlElevation = L.control.elevation(opts.elevationControl.options).addTo(map);
-			let controlLayer = L.control.layers(null, null, opts.layersControl.options);
-
-			controlElevation.on('eledata_loaded', ({layer, name}) => controlLayer.addTo(map) && layer.eachLayer((trkseg) => trkseg.feature.geometry.type != "Point" && controlLayer.addOverlay(trkseg, trkseg.feature && trkseg.feature.properties && trkseg.feature.properties.name || name)));
-
-			controlElevation.load(opts.elevationControl.urls[id]);
-
-			maps.push(map);
-			charts.push(controlElevation);
-		}
+		controlElevation.load(opts.elevationControl.url);
 	</script>
 
 	<!-- i18n -->
@@ -151,7 +138,6 @@
 	</script>
 
 	
-
 </body>
 
 </html>
